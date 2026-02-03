@@ -6,7 +6,7 @@ public:
         if (n < 4) return false;
 
         int p = -1, q = -1;
-        int flag = 0; // 0 = inc, 1 = dec, 2 = final inc
+        int flag = 0; 
 
         for (int i = 0; i < n - 1; i++)
         {
@@ -34,11 +34,9 @@ public:
             }
         }
 
-        // 🔑 FIX: handle case where final increase goes till the end
         if (flag == 2 && q == -1)
             q = n - 2;
 
-        // Final validation
         if (p <= 0) return false;
         if (q <= p) return false;
         if (q >= n - 1) return false;
