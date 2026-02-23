@@ -9,6 +9,6 @@ public:
             st.insert(s.substr(i,k));
         }
         
-        return st.size()==(1<<k);
+        return st.size()==(1<<k); //u can check my own prev soln too
     }
 };
