@@ -2,20 +2,13 @@ class Solution {
 public:
     bool hasAllCodes(string s, int k) 
     {
-        int n = s.length();
-        if (k > n) return false;
-
-        unordered_set<int> seen;
-        int num = 0;
-
-        for (int i = 0; i < n; i++)
+        set<string>st;
+        int n=s.length();
+        for (int i=0;i<n-k+1;i++)
         {
-            num = ((num << 1) & ((1 << k) - 1)) | (s[i] - '0');
-
-            if (i >= k - 1)
-                seen.insert(num);
+            st.insert(s.substr(i,k));
         }
-
-        return seen.size() == (1 << k);
+        
+        return st.size()==(1<<k);
     }
 };
