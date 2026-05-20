@@ -50,8 +50,11 @@ public:
             h2=h2->next;
         }
         if (carry)
+        {
         d->next=new ListNode(carry);
         d=d->next;
+        }
         return newList->next;
+       
     }
 };
