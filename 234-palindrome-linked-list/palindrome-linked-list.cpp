@@ -10,42 +10,48 @@
  */
 class Solution {
 public:
+    ListNode* reverseNode(ListNode* head)
+    {
+        if (head==NULL|| head->next==NULL)
+        return head;
+        ListNode* temp=head;
+        ListNode* prev=NULL;
+        ListNode* front;
+        while (temp!=NULL)
+        {
+            front=temp->next;
+            temp->next=prev;
+            prev=temp;
+            temp=front;
+        }
+        return prev;
+    }
     bool isPalindrome(ListNode* head) 
     {
-        if (head==NULL||head->next==NULL)
-        return true;
+        //pehla method is stack wala aadhe elements ko stack pe daalo then next half ko compare kro stack ke top se
+        //METHOD 2 ->space O(n)
         ListNode* slow=head;
         ListNode* fast=head;
-        int cnt=0;
-        
-        while (fast!=NULL&&fast->next!=NULL)
+        while (fast->next!=NULL&& fast->next->next!=NULL) // cz we need mid1 (uske baad wala node se reverse krna hai na)
         {
+            slow=slow->next;
             fast=fast->next->next;
-            slow=slow->next;
-            cnt++;
-            
         }
-        if (fast!=NULL)
-        cnt++;
-        fast=head; //now slow is at middle index and fats at beginning
-    
-        stack<int>s;
-        int c=0;
-        while (c<cnt)
+        ListNode* newHead=reverseNode(slow->next);
+        ListNode* temp=newHead;
+        fast=head;
+        while (temp!=NULL)
         {
-            s.push(fast->val);
+            if (fast->val!=temp->val)
+            {
+                reverseNode(newHead);
+                return false;
+            }
+            temp=temp->next;
             fast=fast->next;
-            c++;
         }
-        while (slow!=NULL)
-        {
-            if (slow->val!=s.top())
-            return false;
-            slow=slow->next;
-            s.pop();
-        }
+        reverseNode(newHead);
         return true;
-
 
     }
 };
