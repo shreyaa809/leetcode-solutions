@@ -3,31 +3,40 @@ public:
     int lengthOfLongestSubstring(string s) 
     {
         int n=s.length();
+        if (n==1||n==0)
+        return n;
         map<char,int>mpp;
-        int last_rem=-1; //last index removed
-        int l=0,lmax=0;
-        for (int i=0;i<n;i++)
+        int count=0,c=0;
+        int i=0,j=i;
+        while (i<n&&j<n)
         {
-            char c=s[i];
-            if (mpp.find(c)==mpp.end())
+            if (mpp.find(s[j])==mpp.end())
             {
-                l++;
-                lmax=max(l,lmax);
-                mpp[c]=i;
+                mpp[s[j]]=j;
+                c++;
+                j++;
+
             }
             else
             {
-                if ((mpp[c])>last_rem)
+                if (mpp[s[j]]<i)
                 {
-                l=l-(mpp[c]+1)+last_rem+1;
-                last_rem=mpp[c];
+                    c++;
+                    mpp[s[j]]=j;
+                    j++;
+                    
+                    continue;
                 }
-                l++;
-                mpp[c]=i;
-                lmax=max(l,lmax);
+                count=max(count,c);
+                c=j-mpp[s[j]];
+                i=mpp[s[j]]+1;
+                mpp[s[j]]=j;
+                j++;
+            
             }
-
         }
-        return lmax;
+        //if whole string unique
+        count=max(count,c);
+        return count;
     }
 };
