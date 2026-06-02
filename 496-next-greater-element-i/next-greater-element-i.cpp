@@ -5,7 +5,7 @@ public:
     {
         int n=nums2.size();
        
-        map<int,int>ng;
+        unordered_map<int,int>ng;
         stack<int>st;
         for (int i=n-1;i>=0;i--)
         {
