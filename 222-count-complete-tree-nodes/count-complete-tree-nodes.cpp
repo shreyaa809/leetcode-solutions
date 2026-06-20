@@ -11,19 +11,39 @@
  */
 class Solution {
 public:
-    void counted(TreeNode* root,int &count)
+    int getLeft(TreeNode* root)
     {
+        int lh=0;
         if (root==NULL)
-        return;
-        count++;
-        counted(root->left,count);
-        counted(root->right,count);
-        return;
+        return lh;
+        while (root)
+        {
+        lh++;
+        root=root->left;
+        }
+        return lh;
+    }
+    int getRight(TreeNode* root)
+    {
+       int rh=0;
+        if (root==NULL)
+        return rh;
+        while (root)
+        {
+        rh++;
+        root=root->right;
+        }
+        return rh;
     }
     int countNodes(TreeNode* root) 
     {
-        int count=0;
-        counted(root,count);
-        return count;
+        if (root==NULL)
+        return 0;
+        int lh=0,rh=0;
+        lh=getLeft(root);
+        rh=getRight(root);
+        if (lh==rh)
+        return (pow(2,lh)-1);
+        return (countNodes(root->left)+countNodes(root->right)+1);
     }
 };
