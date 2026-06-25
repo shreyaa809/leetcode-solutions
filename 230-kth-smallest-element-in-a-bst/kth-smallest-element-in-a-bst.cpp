@@ -11,26 +11,24 @@
  */
 class Solution {
 public:
-    void findK(TreeNode* root,set<int>&s)
+    void findKSmall(TreeNode* root,int& k,int& ans)
     {
         if (root==NULL)
         return;
-        s.insert(root->val);
-        findK(root->left,s);
-        findK(root->right,s);
+        
+        findKSmall(root->left,k,ans);
+        k--;
+        if (root&& k==0)
+        {
+        ans=root->val;
+        return;
+        }
+        return findKSmall(root->right,k,ans);
     }
     int kthSmallest(TreeNode* root, int k) 
     {
-        set<int>s;
-        findK(root,s);
-        for (auto it:s)
-        {
-            k--;
-            if (k==0)
-            return it;
-            
-            
-        }
-        return -1;
+        int ans=0;
+        findKSmall(root,k,ans);
+        return ans;
     }
 };
