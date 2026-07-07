@@ -3,18 +3,17 @@ public:
     vector<int> twoSum(vector<int>& nums, int target) 
     {
         int n=nums.size();
-        int fi,li;
-        map<int,int>mpp; //value,index
-        for (int i=0;i<n;i++)
+        int i=1;
+        map<int,int>mpp; //sum,idx
+        mpp.insert({nums[0],0});
+        while (i<n)
         {
-            if ((mpp.find(target-nums[i]))!=mpp.end())
-            {
-                fi=mpp[target-nums[i]];
-                li=i;
-            }
-            mpp[nums[i]]=i;
+            int reqd=target-nums[i];
+            if (mpp.find(reqd)!=mpp.end())
+            return {mpp[reqd],i};
+            mpp.insert({nums[i],i});
+            i++;
         }
-
-        return {fi,li};
+        return {};
     }
 };
