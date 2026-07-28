@@ -1,22 +1,21 @@
 class Solution {
 public:
-    int solve(int n,vector<int>&arr)
+    int find(int n,vector<int>&dp)
     {
-        if (n<0)
-        return 0;
-        if (arr[n]!=-1)
-        return arr[n];
         
-        if (n==0)
-        return 1;
-        int one_step=solve(n-1,arr);
-        int two_step=solve(n-2,arr);
+        if (n<=1)
+        return dp[n]=1;
+        if (dp[n]!=-1)
+        return dp[n];
         
-        return arr[n]=one_step+two_step;
+        return dp[n]=find(n-1,dp)+find(n-2,dp);
     }
     int climbStairs(int n) 
     {
-        vector<int>arr(n+1,-1);
-        return solve(n,arr);
+        if (n<=1)
+        return 1;
+        vector<int>dp(n+1,-1);
+        return find(n,dp);
+        
     }
 };
