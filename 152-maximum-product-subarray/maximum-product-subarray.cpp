@@ -2,20 +2,19 @@ class Solution {
 public:
     int maxProduct(vector<int>& nums) 
     {
+        int pre=1,suff=1;
+        int ans=INT_MIN;
         int n=nums.size();
-        //trying brute solution
-        int prod=INT_MIN;
         for (int i=0;i<n;i++)
         {
-            int prod1=1;
-            int j=i;
-            while (j<n)
-            {
-                prod1=prod1*nums[j];
-                prod=max(prod,prod1);
-                j++;
-            }
+            if (pre==0)
+            pre=1;
+            if (suff==0)
+            suff=1;
+            pre=pre*nums[i];
+            suff=suff*nums[n-i-1];
+            ans=max(ans,max(pre,suff));
         }
-        return prod;
+        return ans;
     }
 };
