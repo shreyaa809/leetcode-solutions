@@ -16,14 +16,8 @@ public:
         int n=nums.size();
         vector<int>dp(n+1,-1);
         vector<int>dp1(n+1,-1);
-        if (n<=3)
-        {
-            int maxi=nums[0];
-            for (auto it:nums)
-            if (it>maxi)
-            maxi=it;
-            return maxi;
-        }
+        if (n==1)
+        return nums[0];
         return max(robber(0,nums,dp,n-1),robber(1,nums,dp1,n));
 
     }
