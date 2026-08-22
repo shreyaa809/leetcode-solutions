@@ -1,27 +1,25 @@
 class Solution {
 public:
-    int findMax(int idx,vector<int>&nums,vector<int>&dp)
+    
+    int robber(vector<int>&dp,vector<int>&nums,int idx)
     {
-        if (idx>=nums.size())
+        if (idx>=nums.size()) 
         return 0;
+        //take
+
         if (dp[idx]!=-1)
-        return dp[idx];
-        
-        
-        int left=nums[idx]+findMax(idx+2,nums,dp);
-        
-        
-        int right=findMax(idx+1,nums,dp);
-        return dp[idx]=max(left,right);
+        {
+            return dp[idx];
+        }
+        dp[idx]=nums[idx]+robber(dp,nums,idx+2);
+        //not take
+        return dp[idx]=max(dp[idx],robber(dp,nums,idx+1));
     }
     int rob(vector<int>& nums) 
     {
-        //basically n+2 krna hai
-        
-       
         int n=nums.size();
-        vector<int>dp(n+1,-1);
-        return findMax(0,nums,dp);
-
+        vector<int>dp(n,-1);
+        return robber(dp,nums,0);
+       
     }
 };
