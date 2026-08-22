@@ -3,7 +3,7 @@ public:
     bool containsDuplicate(vector<int>& nums) 
     {
         int n=nums.size();
-        set<int>s(nums.begin(),nums.end());
+        unordered_set<int>s(nums.begin(),nums.end());
         if (n==s.size())
         return false;
         return true;
