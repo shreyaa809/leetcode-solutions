@@ -5,7 +5,7 @@ public:
         int n=nums.size();
         int prod=1;
         int zero=0;
-        vector<int>ans(n);
+     
         for (int i=0;i<n;i++)
         {
             if (nums[i]!=0)
@@ -15,18 +15,19 @@ public:
         }
         for (int i=0;i<n;i++)
         {
+            int num=nums[i];
             if (zero!=0&&nums[i]!=0)
-            ans[i]=0;
-            else if (zero!=0&&nums[i]==0)
+            nums[i]=0;
+            else if (zero!=0&&num==0)
             {
                 if (zero==1)
-                ans[i]=prod;
+                nums[i]=prod;
                 else
-                ans[i]=0;
+                nums[i]=0;
             }
             else
-            ans[i]=prod/nums[i];
+            nums[i]=prod/num;
         }
-        return ans;
+        return nums;
     }
 };
