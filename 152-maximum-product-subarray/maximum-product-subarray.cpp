@@ -2,18 +2,19 @@ class Solution {
 public:
     int maxProduct(vector<int>& nums) 
     {
-        int pre=1,suff=1;
-        int ans=INT_MIN;
+        //two ways:
+        //method 1: kadane's algo
         int n=nums.size();
-        for (int i=0;i<n;i++)
+        int mini=nums[0];
+        int maxi=nums[0];
+        int ans=nums[0];
+        for (int i=1;i<n;i++)
         {
-            if (pre==0)
-            pre=1;
-            if (suff==0)
-            suff=1;
-            pre=pre*nums[i];
-            suff=suff*nums[n-i-1];
-            ans=max(ans,max(pre,suff));
+            if (nums[i]<0)
+            swap(mini,maxi);
+            mini=min(nums[i],mini*nums[i]);
+            maxi=max(nums[i],maxi*nums[i]);
+            ans=max(ans,maxi);
         }
         return ans;
     }
