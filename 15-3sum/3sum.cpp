@@ -3,39 +3,34 @@ public:
     vector<vector<int>> threeSum(vector<int>& nums) 
     {
         int n=nums.size();
-        int i=0;
+        set<vector<int>>trip;
         sort(nums.begin(),nums.end());
-        vector<vector<int>>ans;
-        while (i<n)
+        for (int i=0;i<n-2;i++)
         {
-            int j=i+1; 
-            int k=n-1;
+            int j=i+1,k=n-1;
             while (j<k)
             {
-                
-                if (nums[i]+nums[j]+nums[k]==0)
+                int summ=nums[i]+nums[j]+nums[k];
+                if (summ==0)
                 {
-                    ans.push_back({nums[i],nums[j],nums[k]});
-                    
-
-                while (j<k&&nums[j]==nums[j+1])
+                trip.insert({nums[i],nums[j],nums[k]});
                 j++;
-                while (k>j&&nums[k]==nums[k-1])
                 k--;
-                j++;k--;
                 }
+                else if (summ>0)
+                {
+                    while (j<k&&nums[i]+nums[j]+nums[k]>0)
+                    k--;
+                }
+                else if (summ<0)
+                {
+                    while (j<k&&nums[i]+nums[j]+nums[k]<0)
+                    j++;
 
-                else if (nums[i]+nums[j]+nums[k]>0)
-                k--;
-                else if (nums[i]+nums[j]+nums[k]<0)
-                j++;
-               
-
+                }
             }
-            while (i<n-1&&nums[i]==nums[i+1])
-                i++;
-            i++;
         }
+        vector<vector<int>>ans(trip.begin(),trip.end());
         return ans;
     }
 };
