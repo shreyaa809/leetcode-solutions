@@ -8,40 +8,60 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-class Solution
- {
+class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
     {
-        ListNode* newList=new ListNode(-1);
-        ListNode* d=newList;
         ListNode* h1=l1;
         ListNode* h2=l2;
-
         int carry=0;
-        
-        while (h1!=NULL || h2!=NULL) {
-            int sum=carry;
-            if (h1!=NULL)
+    
+        ListNode* head=new ListNode(-1);
+        ListNode* ans=head;
+        while (h1!=NULL&&h2!=NULL)
+        {
+            int sum=h1->val+h2->val+carry;
+            if (sum>9)
             {
-                sum+=h1->val;
-                h1=h1->next;
-            }
-            if (h2!=NULL)
-            {
-                sum+=h2->val;
-                h2=h2->next;
-            }
-            d->next=new ListNode(sum%10);
-            d=d->next;
             carry=sum/10;
-            
+            sum=sum%10;
+            }
+            else
+            carry=0;
+            head->next=new ListNode(sum);
+            head=head->next;
+            h1=h1->next;
+            h2=h2->next;
         }
-       
-        if (carry){
-        d->next=new ListNode(carry);
-        d=d->next;
+        while (h1!=NULL)
+        {
+            int sum=h1->val+carry;
+            if (sum>9)
+            {
+            carry=sum/10;
+            sum=sum%10;
+            }
+            else carry=0;
+            head->next=new ListNode(sum);
+            head=head->next;
+            h1=h1->next;
         }
-        return newList->next; 
+
+        while (h2!=NULL)
+        {
+            int sum=h2->val+carry;
+            if (sum>9)
+            {
+            carry=sum/10;
+            sum=sum%10;
+            }
+            else carry=0;
+            head->next=new ListNode(sum);
+            head=head->next;
+            h2=h2->next;
+        }
+        if (carry)
+        head->next=new ListNode(carry);
+        return ans->next;
     }
 };
