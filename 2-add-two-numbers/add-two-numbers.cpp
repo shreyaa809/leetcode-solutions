@@ -18,9 +18,11 @@ public:
     
         ListNode* head=new ListNode(-1);
         ListNode* ans=head;
-        while (h1!=NULL&&h2!=NULL)
+        while (h1!=NULL||h2!=NULL)
         {
-            int sum=h1->val+h2->val+carry;
+            int v1=(h1==NULL)?0:h1->val;
+            int v2=(h2==NULL)?0:h2->val;
+            int sum=v1+v2+carry;
             if (sum>9)
             {
             carry=sum/10;
@@ -30,36 +32,12 @@ public:
             carry=0;
             head->next=new ListNode(sum);
             head=head->next;
+            if (h1!=NULL)
             h1=h1->next;
+            if (h2!=NULL)
             h2=h2->next;
         }
-        while (h1!=NULL)
-        {
-            int sum=h1->val+carry;
-            if (sum>9)
-            {
-            carry=sum/10;
-            sum=sum%10;
-            }
-            else carry=0;
-            head->next=new ListNode(sum);
-            head=head->next;
-            h1=h1->next;
-        }
-
-        while (h2!=NULL)
-        {
-            int sum=h2->val+carry;
-            if (sum>9)
-            {
-            carry=sum/10;
-            sum=sum%10;
-            }
-            else carry=0;
-            head->next=new ListNode(sum);
-            head=head->next;
-            h2=h2->next;
-        }
+        
         if (carry)
         head->next=new ListNode(carry);
         return ans->next;
